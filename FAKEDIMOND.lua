@@ -5,8 +5,8 @@ local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
 -- Config
-local CORRECT_KEY = "AMBALABU"
-local LINKVERTISE_LINK = "https://direct-link.net/1395310/l9zOgqguckF6"
+local CORRECT_KEY = "ANHYEUEM1DAYS"
+local LINKVERTISE_LINK = "https://direct-link.net/1395310/AW4AzFHMtNkY"
 local SCRIPT_URL = "https://raw.githubusercontent.com/daukhanhan34-spec/99NIGHTBESTSCRIPT/refs/heads/main/FAKEDIMOND.lua"
 
 -- 🌟 Key UI
