@@ -1,114 +1,96 @@
--- 🌟 Fancy Key System + Loading + Auto Run Script 🌟
 local Players = game:GetService("Players")
 local StarterGui = game:GetService("StarterGui")
+local TweenService = game:GetService("TweenService")
+local SoundService = game:GetService("SoundService")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
--- Config
-local CORRECT_KEY = "ANHYEUEM1DAYS"
-local LINKVERTISE_LINK = "https://direct-link.net/1395310/AW4AzFHMtNkY"
-local SCRIPT_URL = "https://raw.githubusercontent.com/daukhanhan34-spec/99NIGHTBESTSCRIPT/refs/heads/main/FAKEDIMOND.lua"
+-- ✅ Key system config
+local CorrectKey = "ANHYEUEM1DAYS"
+local GetKeyLink = "https://direct-link.net/1395310/AW4AzFHMtNkY"
 
--- 🌟 Key UI
-local gui = Instance.new("ScreenGui", PlayerGui)
-gui.Name = "KeySystemUI"
-gui.ResetOnSpawn = false
+-- Blur cho KeySystem
+local blur = Instance.new("BlurEffect", game.Lighting)
+blur.Enabled = true
+blur.Size = 20
 
-local frame = Instance.new("Frame", gui)
-frame.Size = UDim2.new(0, 380, 0, 180)
-frame.Position = UDim2.new(0.5, -190, 0.5, -90)
-frame.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
-frame.BorderSizePixel = 0
-Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 10)
+-- 🔑 Key System UI
+local keyGui = Instance.new("ScreenGui", PlayerGui)
+keyGui.Name = "KeySystemUI"
+keyGui.ResetOnSpawn = false
 
-local stroke = Instance.new("UIStroke", frame)
-stroke.Thickness = 3
-stroke.Color = Color3.fromRGB(0, 255, 255)
+local keyFrame = Instance.new("Frame", keyGui)
+keyFrame.Size = UDim2.new(0, 300, 0, 160)
+keyFrame.Position = UDim2.new(0.5, -150, 0.5, -80)
+keyFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+Instance.new("UICorner", keyFrame).CornerRadius = UDim.new(0, 10)
 
--- hiệu ứng viền đổi màu
-task.spawn(function()
-    while task.wait(0.2) do
-        stroke.Color = Color3.fromRGB(math.random(100,255), math.random(100,255), math.random(100,255))
-    end
-end)
-
-local title = Instance.new("TextLabel", frame)
-title.Size = UDim2.new(1, 0, 0, 40)
-title.Position = UDim2.new(0, 0, 0, 5)
-title.BackgroundTransparency = 1
+local title = Instance.new("TextLabel", keyFrame)
+title.Size = UDim2.new(1, 0, 0, 35)
+title.Text = "🔑 Key System"
 title.Font = Enum.Font.GothamBold
-title.TextSize = 20
-title.TextColor3 = Color3.fromRGB(255, 255, 255)
-title.Text = "🔑 Diamond Spoofer Key System"
+title.TextSize = 18
+title.TextColor3 = Color3.fromRGB(255,255,255)
+title.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 
-local info = Instance.new("TextLabel", frame)
-info.Size = UDim2.new(1, -20, 0, 20)
-info.Position = UDim2.new(0, 10, 0, 45)
-info.BackgroundTransparency = 1
-info.Font = Enum.Font.Gotham
-info.TextSize = 14
-info.TextColor3 = Color3.fromRGB(200,200,200)
-info.Text = "Click 'Get Key', open the link, then paste your key here."
+local linkBtn = Instance.new("TextButton", keyFrame)
+linkBtn.Size = UDim2.new(0.8, 0, 0, 30)
+linkBtn.Position = UDim2.new(0.1, 0, 0, 50)
+linkBtn.Text = "🌐 Get Key"
+linkBtn.Font = Enum.Font.GothamBold
+linkBtn.TextSize = 14
+linkBtn.TextColor3 = Color3.fromRGB(255,255,255)
+linkBtn.BackgroundColor3 = Color3.fromRGB(0,170,255)
+Instance.new("UICorner", linkBtn).CornerRadius = UDim.new(0, 6)
 
-local keyBox = Instance.new("TextBox", frame)
-keyBox.Size = UDim2.new(0.85, 0, 0, 36)
-keyBox.Position = UDim2.new(0.075, 0, 0, 75)
-keyBox.PlaceholderText = "Enter key..."
+local keyBox = Instance.new("TextBox", keyFrame)
+keyBox.Size = UDim2.new(0.8, 0, 0, 30)
+keyBox.Position = UDim2.new(0.1, 0, 0, 90)
+keyBox.PlaceholderText = "Enter Key..."
+keyBox.Text = ""
 keyBox.Font = Enum.Font.GothamBold
-keyBox.TextSize = 16
+keyBox.TextSize = 14
 keyBox.TextColor3 = Color3.fromRGB(255,255,255)
-keyBox.BackgroundColor3 = Color3.fromRGB(45, 45, 60)
-Instance.new("UICorner", keyBox).CornerRadius = UDim.new(0,6)
+keyBox.BackgroundColor3 = Color3.fromRGB(70,70,70)
+Instance.new("UICorner", keyBox).CornerRadius = UDim.new(0, 6)
 
-local getBtn = Instance.new("TextButton", frame)
-getBtn.Size = UDim2.new(0.45, -5, 0, 34)
-getBtn.Position = UDim2.new(0.05, 0, 0, 125)
-getBtn.Text = "🌐 Get Key"
-getBtn.Font = Enum.Font.GothamBold
-getBtn.TextSize = 14
-getBtn.BackgroundColor3 = Color3.fromRGB(0, 180, 120)
-getBtn.TextColor3 = Color3.fromRGB(255,255,255)
-Instance.new("UICorner", getBtn).CornerRadius = UDim.new(0,6)
+local submitBtn = Instance.new("TextButton", keyFrame)
+submitBtn.Size = UDim2.new(0.8, 0, 0, 30)
+submitBtn.Position = UDim2.new(0.1, 0, 0, 130)
+submitBtn.Text = "✅ Submit"
+submitBtn.Font = Enum.Font.GothamBold
+submitBtn.TextSize = 14
+submitBtn.TextColor3 = Color3.fromRGB(255,255,255)
+submitBtn.BackgroundColor3 = Color3.fromRGB(0,200,100)
+Instance.new("UICorner", submitBtn).CornerRadius = UDim.new(0, 6)
 
-local applyBtn = Instance.new("TextButton", frame)
-applyBtn.Size = UDim2.new(0.45, -5, 0, 34)
-applyBtn.Position = UDim2.new(0.5, 5, 0, 125)
-applyBtn.Text = "✅ Apply Key"
-applyBtn.Font = Enum.Font.GothamBold
-applyBtn.TextSize = 14
-applyBtn.BackgroundColor3 = Color3.fromRGB(0, 120, 200)
-applyBtn.TextColor3 = Color3.fromRGB(255,255,255)
-Instance.new("UICorner", applyBtn).CornerRadius = UDim.new(0,6)
-
--- helper: notify
-local function notify(t)
-    StarterGui:SetCore("SendNotification", {Title = "Key System", Text = t, Duration = 4})
-end
-
--- copy link
-getBtn.MouseButton1Click:Connect(function()
-    local ok = pcall(function() setclipboard(LINKVERTISE_LINK) end)
-    if ok then
-        notify("Link copied to clipboard!")
-    else
-        notify("Open this link: "..LINKVERTISE_LINK)
-    end
+-- 🌐 Get Key button
+linkBtn.MouseButton1Click:Connect(function()
+    setclipboard(GetKeyLink)
+    StarterGui:SetCore("SendNotification", {
+        Title = "Get Key",
+        Text = "Link copied! Paste into browser.",
+        Duration = 5
+    })
 end)
 
--- apply key
-applyBtn.MouseButton1Click:Connect(function()
-    if keyBox.Text == CORRECT_KEY then
-        notify("Key Accepted! Loading...")
-        gui:Destroy()
+-- ✅ Check Key
+submitBtn.MouseButton1Click:Connect(function()
+    if keyBox.Text == CorrectKey then
+        StarterGui:SetCore("SendNotification", {
+            Title = "Key Accepted!",
+            Text = "Loading Diamonds UI...",
+            Duration = 4
+        })
+        keyGui:Destroy()
+        blur:Destroy()
 
-        -- 🌟 Loading UI
+        -- 🟢 Loading UI
         local loadingGui = Instance.new("ScreenGui", PlayerGui)
-        loadingGui.Name = "LoadingScreen"
         loadingGui.ResetOnSpawn = false
-
         local loadFrame = Instance.new("Frame", loadingGui)
-        loadFrame.Size = UDim2.new(0, 260, 0, 100)
-        loadFrame.Position = UDim2.new(0.5, -130, 0.5, -50)
+        loadFrame.Size = UDim2.new(0, 250, 0, 100)
+        loadFrame.Position = UDim2.new(0.5, -125, 0.5, -50)
         loadFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
         Instance.new("UICorner", loadFrame).CornerRadius = UDim.new(0, 8)
 
@@ -117,40 +99,180 @@ applyBtn.MouseButton1Click:Connect(function()
         loadText.Text = "Loading... 0%"
         loadText.Font = Enum.Font.GothamBold
         loadText.TextSize = 16
-        loadText.TextColor3 = Color3.fromRGB(255,255,255)
+        loadText.TextColor3 = Color3.fromRGB(255, 255, 255)
         loadText.BackgroundTransparency = 1
 
         local barBack = Instance.new("Frame", loadFrame)
         barBack.Size = UDim2.new(0.9, 0, 0, 20)
         barBack.Position = UDim2.new(0.05, 0, 0.6, 0)
         barBack.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-        Instance.new("UICorner", barBack).CornerRadius = UDim.new(0,6)
+        Instance.new("UICorner", barBack).CornerRadius = UDim.new(0, 6)
 
         local barFill = Instance.new("Frame", barBack)
         barFill.Size = UDim2.new(0, 0, 1, 0)
-        barFill.BackgroundColor3 = Color3.fromRGB(0,200,255)
-        Instance.new("UICorner", barFill).CornerRadius = UDim.new(0,6)
+        barFill.BackgroundColor3 = Color3.fromRGB(0, 200, 255)
+        Instance.new("UICorner", barFill).CornerRadius = UDim.new(0, 6)
 
+        -- progress animation
         task.spawn(function()
-            for i = 1,100 do
-                barFill.Size = UDim2.new(i/100,0,1,0)
-                loadText.Text = "Loading... "..i.."%"
-                task.wait(0.03)
+            for i = 1, 100 do
+                barFill.Size = UDim2.new(i/100, 0, 1, 0)
+                loadText.Text = "Loading... " .. i .. "%"
+                task.wait(0.02)
             end
             loadingGui:Destroy()
 
-            -- chạy script chính sau khi load xong
-            local ok, res = pcall(function()
-                return game:HttpGet(SCRIPT_URL)
-            end)
-            if ok and res then
-                local fn = loadstring(res)
-                if fn then fn() end
-            else
-                notify("Failed to load script from URL.")
+            -- 🔥 Diamonds UI (fake)
+            local diamonds = 0
+
+            local function applyToLabel(obj)
+                if obj:IsA("TextLabel") or obj:IsA("TextButton") then
+                    if string.find(obj.Text, "%d") then
+                        obj.Text = tostring(diamonds)
+                    end
+                end
             end
+
+            for _, obj in ipairs(PlayerGui:GetDescendants()) do
+                applyToLabel(obj)
+            end
+            PlayerGui.DescendantAdded:Connect(applyToLabel)
+
+            local screenGui = Instance.new("ScreenGui", PlayerGui)
+            screenGui.ResetOnSpawn = false
+
+            local frame = Instance.new("Frame", screenGui)
+            frame.Size = UDim2.new(0, 220, 0, 150)
+            frame.Position = UDim2.new(0.5, -110, 1.5, 0)
+            frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+            frame.Active = true
+            frame.Draggable = true
+            Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 10)
+
+            local title = Instance.new("TextLabel", frame)
+            title.Size = UDim2.new(1, 0, 0, 30)
+            title.Text = "💎 Diamonds"
+            title.Font = Enum.Font.GothamBold
+            title.TextSize = 18
+            title.TextColor3 = Color3.fromRGB(255, 255, 255)
+            title.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+            local stroke = Instance.new("UIStroke", title)
+            stroke.Thickness = 2
+
+            task.spawn(function()
+                while task.wait(0.1) do
+                    stroke.Color = Color3.fromRGB(math.random(150,255), math.random(150,255), math.random(150,255))
+                end
+            end)
+
+            local textBox = Instance.new("TextBox", frame)
+            textBox.Size = UDim2.new(0.8, 0, 0, 30)
+            textBox.Position = UDim2.new(0.1, 0, 0, 45)
+            textBox.PlaceholderText = "Enter number..."
+            textBox.Text = ""
+            textBox.Font = Enum.Font.GothamBold
+            textBox.TextSize = 14
+            textBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+            textBox.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+            Instance.new("UICorner", textBox).CornerRadius = UDim.new(0, 6)
+
+            local button = Instance.new("TextButton", frame)
+            button.Size = UDim2.new(0.8, 0, 0, 30)
+            button.Position = UDim2.new(0.1, 0, 0, 85)
+            button.Text = "Apply"
+            button.Font = Enum.Font.GothamBold
+            button.TextSize = 14
+            button.TextColor3 = Color3.fromRGB(255, 255, 255)
+            button.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+            Instance.new("UICorner", button).CornerRadius = UDim.new(0, 6)
+
+            -- Toggle Button
+            local toggleButton = Instance.new("TextButton", screenGui)
+            toggleButton.Size = UDim2.new(0, 50, 0, 25)
+            toggleButton.Position = UDim2.new(0, 10, 0, 10)
+            toggleButton.Text = "UI"
+            toggleButton.Font = Enum.Font.GothamBold
+            toggleButton.TextSize = 14
+            toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            toggleButton.BackgroundColor3 = Color3.fromRGB(100, 100, 200)
+            Instance.new("UICorner", toggleButton).CornerRadius = UDim.new(0, 6)
+
+            -- Blur effect
+            local blurUI = Instance.new("BlurEffect", game.Lighting)
+            blurUI.Size = 0
+            blurUI.Enabled = false
+
+            -- Sound effects
+            local clickSound = Instance.new("Sound", SoundService)
+            clickSound.SoundId = "rbxassetid://12221967"
+            clickSound.Volume = 1
+
+            local bgMusic = Instance.new("Sound", SoundService)
+            bgMusic.SoundId = "rbxassetid://1843528071"
+            bgMusic.Volume = 0.5
+            bgMusic.Looped = true
+
+            local function playClick()
+                clickSound:Play()
+            end
+
+            -- Apply button
+            button.MouseButton1Click:Connect(function()
+                playClick()
+                local num = tonumber(textBox.Text)
+                if num then
+                    diamonds = num
+                    for _, obj in ipairs(PlayerGui:GetDescendants()) do
+                        applyToLabel(obj)
+                    end
+                    StarterGui:SetCore("SendNotification", {
+                        Title = "Diamonds Updated!",
+                        Text = "New amount: " .. tostring(diamonds),
+                        Duration = 4
+                    })
+                else
+                    StarterGui:SetCore("SendNotification", {
+                        Title = "Error",
+                        Text = "Please enter a valid number!",
+                        Duration = 4
+                    })
+                end
+            end)
+
+            -- Toggle UI
+            local uiVisible = false
+            toggleButton.MouseButton1Click:Connect(function()
+                playClick()
+                uiVisible = not uiVisible
+                if uiVisible then
+                    blurUI.Enabled = true
+                    TweenService:Create(blurUI, TweenInfo.new(0.5), {Size = 20}):Play()
+                    TweenService:Create(frame, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+                        Position = UDim2.new(0.5, -110, 0.5, -75)
+                    }):Play()
+                    bgMusic:Play()
+                else
+                    TweenService:Create(blurUI, TweenInfo.new(0.5), {Size = 0}):Play()
+                    task.delay(0.5, function() blurUI.Enabled = false end)
+                    TweenService:Create(frame, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
+                        Position = UDim2.new(0.5, -110, 1.5, 0)
+                    }):Play()
+                    bgMusic:Stop()
+                end
+            end)
+
+            -- Thông báo khi bật script
+            StarterGui:SetCore("SendNotification", {
+                Title = "Script Loaded!",
+                Text = "Made by Khánh An ✨ Diamonds ready!",
+                Duration = 6
+            })
         end)
     else
-        notify("❌ Wrong key!")
+        StarterGui:SetCore("SendNotification", {
+            Title = "Wrong Key",
+            Text = "Please try again!",
+            Duration = 4
+        })
     end
 end)
