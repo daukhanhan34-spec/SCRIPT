@@ -6,7 +6,7 @@ local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
 -- ✅ Key system config
-local CorrectKey = "ANHYEUEM1DAYS"
+local CorrectKey = "BAYBAYDIEM"
 local GetKeyLink = "https://direct-link.net/1395310/AW4AzFHMtNkY"
 
 -- Blur cho KeySystem
